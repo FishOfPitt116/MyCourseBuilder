@@ -61,22 +61,28 @@ def fillDict(term, dept_code):
 		if int(num) >= 2000:
 			return dict
 
-		# If valid, map course_num to node (course_obj), add node to graph (no dependent nodes yet)
+		# If valid, map course_num to node (course_obj)
 		try:
 			dict[num] = Node(obj)
 		except:
 			print("type error on class", num)
 			continue
-
+		
+		# Add node to graph (no dependent nodes yet)
 		universal_graph.add_list_ele(dict[num])
 
+		# Ex: "CS" has length 2, preqs_string of "441" has full str of all prereqs (needs to be parsed)
 		dept_code_len = len(dept_code)
 		preqs_string = dict[num].section_details.preqs
+
 		for i in range(len(preqs_string)-dept_code_len):
+			# Do not account for ands/ors
 			if preqs_string[i] == ';':
 				break
+			# Matches dept_code --> Ex: 1501 --> (CS 0441 or CS 0406) and (CS 0445 or CS 0455 or COE 0445), match "CS" so code is "0441", "0406", etc
 			if preqs_string[i:i+dept_code_len] == dept_code:
 				code = preqs_string[i+dept_code_len+1:i+dept_code_len+5]
+				# Add 1501 node (dependent) to 445 parent (prereq) in dict
 				if code in dict:
 					universal_graph.add_node_ele(dict[code], dict[num])
 	return dict
