@@ -1,4 +1,5 @@
 from pittapi import course
+import json
 
 class Node:
 	def __init__(self): # default constructor: Node()
@@ -20,6 +21,14 @@ class Node:
 	def __str__(self):
 		return self.dept_code + " " + self.course_no
 
+	def toJSON(self):
+		return {
+			"dept_code" : self.dept_code,
+			"id" : self.course_no, # can change back to course_no, would need to modify js code
+			"course_title" : self.course_title,
+			"description" : self.description,
+			"completed" : self.completed
+		}
 		
 	# def dept_Code(code, class_type, class_number): 
 	# 	courseType = (course.get_courses(code, class_type))
@@ -86,5 +95,22 @@ class Graph:
 						self.add_node_ele(dict[code], dict[num])
 		return dict
 
+	def toJSON(self):
+		nodes = []
+		for entry in self.course_map.values():
+			nodes.append(entry.toJSON())
+		links = []
+		for key, value in self.adjacency_list.items():
+			for ele in value:
+				links.append({"source":key.course_no, "target":ele.course_no})
+		# return {
+		# 	"nodes" : [ entry.toJSON() for entry in course_map.values() ],
+		# 	"links" : [ { "source": key, "target": value.course_no} for key, value in adjacency_list.items() ]
+		# }
+		return { "nodes" : nodes, "links" : links }
+
+
 universal_graph = Graph('2231', 'CS')
-print(str(universal_graph))
+print(universal_graph.toJSON())
+with open('test.json', 'w') as f:
+	json.dump(universal_graph.toJSON(), f)
