@@ -67,7 +67,7 @@ d3.json("json/cs.json", function(error, graph) {
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
-    .attr("stroke-width", function(d) { return Math.sqrt(d.value); })
+    .attr("stroke-width", function(d) { return 3; })
     .attr('marker-end', 'url(#arrowhead)');
 
   var node = svg.append("g")
@@ -75,18 +75,20 @@ d3.json("json/cs.json", function(error, graph) {
     .selectAll("g")
     .data(graph.nodes)
     .enter().append("g")
+    .on('dblclick', function(d) { alert(d.id + " is the node you selected") });
 
   var circles = node.append("circle")
-    .attr("r", 5)
+    .attr("r", 20)
     .attr("fill", function(d) { return color(d.group); });
+    // .attr("text", function(d) { return d.id });
 
   // Create a drag handler and append it to the node object instead
-  var drag_handler = d3.drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
+  // var drag_handler = d3.drag()
+  //     .on("start", dragstarted)
+  //     .on("drag", dragged)
+  //     .on("end", dragended);
 
-  drag_handler(node);
+  // drag_handler(node);
   
   var labels = node.append("text")
       .text(function(d) {
