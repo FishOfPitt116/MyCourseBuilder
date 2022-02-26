@@ -18,7 +18,7 @@ class Node:
 		self.completed = False
 
 	def __str__(self):
-		return self.dept_code + self.course_no + self.course_title + self.description
+		return self.dept_code + " " + self.course_no
 
 		
 	# def dept_Code(code, class_type, class_number): 
@@ -28,18 +28,50 @@ class Node:
 
 class Graph:
 	def __init__(self):
+		self.adjacency_list = {}
 
-class AdjacencyList:
-	def __init__(self):
+	def add_list_ele(self, node):
+		self.adjacency_list[node] = []
+
+	def add_node_ele(self, prereq, node):
+		self.adjacency_list[prereq].append(node)
+
+	def __str__(self):
+		output = ""
+		for key, val in self.adjacency_list.items():
+			output += "{" + str(key) + " : ["
+			for node in val:
+				output += str(node) + ", "
+			output += "]}\n"
+		return output
+
+universal_graph = Graph()
 
 def fillDict(term, dept_code):
 	dict = {} 
 	for num, obj in course.get_courses(term, dept_code).courses.items():
 		if int(num) >= 2000:
 			return dict
-		dict[num] = Node(obj)
-		print(str(dict[num]))
+
+		try:
+			dict[num] = Node(obj)
+		except:
+			print("type error on class", num)
+			continue
+
+		universal_graph.add_list_ele(dict[num])
+
+		dept_code_len = len(dept_code)
+		preqs_string = dict[num].section_details.preqs
+		for i in range(len(preqs_string)-dept_code_len):
+			if preqs_string[i] == ';':
+				break
+			if preqs_string[i:i+dept_code_len] == dept_code:
+				code = preqs_string[i+dept_code_len+1:i+dept_code_len+5]
+				if code in dict:
+					universal_graph.add_node_ele(dict[code], dict[num])
 	return dict
 
 
 fillDict('2231', 'CS')
+print(str(universal_graph))
