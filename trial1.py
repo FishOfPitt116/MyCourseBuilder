@@ -26,6 +26,11 @@ class Node:
 	# 	self.course_no = class_number
 	# 	specific_course = courseType.courses[class_number]
 
+class Graph:
+	def __init__(self):
+
+class AdjacencyList:
+	def __init__(self):
 
 def fillDict(term, dept_code):
 	dict = {} 
@@ -36,10 +41,5 @@ def fillDict(term, dept_code):
 		print(str(dict[num]))
 	return dict
 
-class Graph:
-	def __init__(self):
-
-class AdjacencyList:
-	def __init__(self):
 
 fillDict('2231', 'CS')
