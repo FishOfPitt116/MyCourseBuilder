@@ -31,22 +31,10 @@ class Node:
 def fillDict(term, dept_code):
 	dict = {} 
 	for num, obj in course.get_courses(term, dept_code).courses.items():
+		if int(num) >= 2000:
+			return dict
 		dict[num] = Node(obj)
 		print(str(dict[num]))
 	return dict
 
 fillDict('2231', 'CS')
-
-# pitt_object = Node()
-
-# def sectionDescriptions(section, term, class_number):
-# 	sectionDet = course.get_extra_section_details(section, term, class_number)
-# 	Node.description = sectionDet.description
-
-# anyCourse = (course.get_courses("2231", "CS")).courses['0007']
-
-# print(pitt_object(sectionDescriptions(anyCourse.sections[0], '2231', '0007')))
-#for i in dict: 
-
-# sectionDet = SectionDetails(NamedTuple)
-	
