@@ -1,9 +1,15 @@
 from pittapi import course
 
+# Returns courses available in specific term for a particular department ("2231" is Fall '22 and "CS" is CS classes)
+# Returns Subject object (has department, courses (dictionary of str to Course object), term)
 CScourses = (course.get_courses("2231", "CS"))
+
+# CScourses.courses['0007'] returns Course object (subject_code, course_number, course_title, sections --> list of Section objects) 
 cs_0007 = CScourses.courses['0007']
 sectionDet = course.get_extra_section_details(section=cs_0007.sections[0] , term="2231", class_number="0007")
+
 for CSnumber, CScourse in CScourses.courses.items():
+    # Do not account for grad level courses
     if int(CSnumber) >= 2000:
         break
     try:
@@ -11,6 +17,7 @@ for CSnumber, CScourse in CScourses.courses.items():
         print(CSnumber, ": ", sectionDet.preqs)
     except:
         print(CSnumber, ": ", "error")
+
 # cs_0007 = CScourses.courses['0447']
 # sectionDet = course.get_extra_section_details(section=cs_0007.sections[0] , term="2231", class_number="1501")
 #sectionDet = course.get_section_details('2231', cs_0007.sections[0].class_number)
