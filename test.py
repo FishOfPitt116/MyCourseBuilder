@@ -1,3 +1,9 @@
 from pittapi import course
 
-print(course.get_courses("2231", "CS"))
+courses = course.get_course_sections("2231", "MATH", "1530")
+print("\n\n")
+for section in courses.sections:
+    try:
+        print(section.instructor)
+    except:
+        pass
