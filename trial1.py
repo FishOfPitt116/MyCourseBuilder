@@ -125,15 +125,20 @@ def get_Graph(graph, term, dept_code):
 		# BUT MAKE SURE TO MERGE FALL AND SPRING
 		# RIGHT NOW WE ARE JUST TESTING THESE GRAPHS
 	else:
+		fallGraph = node_Graph
 		return fallGraph
 
 mergedGraph = None
 if fallGraph != None && springGraph != null:
 	mergedGraph = mergeGraph()
 
-def mergeGraph: 
+def mergeGraph(curTerm): 
 	# code
+	merge = fallGraph.adjacency_list | springGraph.adjacency_list
+	return merge
 
+def toJSON(): 
+	
 # ADD MERGE GRAPH JSON
 '''
 
