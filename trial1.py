@@ -109,6 +109,33 @@ class Graph:
 		# }
 		return { "nodes" : nodes, "links" : links }
 
+''' THIS APPROACH ONLY WORKS FOR SPECIFIC DEPARTMENTS AT THE MOMENT
+fallGraph = None
+springGraph = None
+
+def get_Graph(graph, term, dept_code):
+	node_Graph = Graph(term, dept_code)
+	if graph.term % 10 == 1:	# add to the fall graph
+		global fallGraph = node_Graph
+		return fallGraph
+	elif graph.term % 10 == 4: # add to the spring graph 
+		global springGraph = node_Graph
+		return springGraph
+		# YOU HAVEN'T DONE THIS YET
+		# BUT MAKE SURE TO MERGE FALL AND SPRING
+		# RIGHT NOW WE ARE JUST TESTING THESE GRAPHS
+	else:
+		return fallGraph
+
+mergedGraph = None
+if fallGraph != None && springGraph != null:
+	mergedGraph = mergeGraph()
+
+def mergeGraph: 
+	# code
+
+# ADD MERGE GRAPH JSON
+'''
 
 universal_graph = Graph('2231', 'CS')
 print(universal_graph.toJSON())
