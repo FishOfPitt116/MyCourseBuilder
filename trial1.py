@@ -1,7 +1,5 @@
 from pittapi import course
 
-
-
 class Node:
 	def __init__(self): # default constructor: Node()
 		self.dept_code = ""# str
@@ -15,33 +13,40 @@ class Node:
 		self.dept_code = course_obj.subject_code
 		self.course_no = course_obj.course_number
 		self.course_title = course_obj.course_title
-	
+		section_details = course.get_extra_section_details(section=course_obj.sections[0], term=course_obj.sections[0].term, class_number=self.course_no)
+		self.description = section_details.description
+
 		self.completed = False
+
+	def __str__(self):
+		return self.dept_code + self.course_no + self.course_title + self.description
+
 		
 	def dept_Code(code, class_type, class_number): 
-		courseType = (course.get_courses(code, class_type)))
+		courseType = (course.get_courses(code, class_type))
 		self.course_no = class_number
 		specific_course = courseType.courses[class_number]
 
 
 def fillDict(term, dept_code):
 	dict = {} 
-	for num, obj in course.get_courses(term, dept_code).course.items():
+	for num, obj in course.get_courses(term, dept_code).courses.items():
 		dict[num] = Node(obj)
+		print(str(dict[num]))
 	return dict
 
-pitt_object = Node()
+fillDict('2231', 'CS')
 
-def sectionDescriptions(section, term, class_number):
-	sectionDet = course.get_extra_section_details(section, term, class_number)
-	Node.description = sectionDet.description
+# pitt_object = Node()
 
-anyCourse = (course.get_courses("2231", "CS")).courses['0007']
+# def sectionDescriptions(section, term, class_number):
+# 	sectionDet = course.get_extra_section_details(section, term, class_number)
+# 	Node.description = sectionDet.description
 
-print(pitt_object(sectionDescriptions(anyCourse.sections[0], '2231', '0007')))
-for i in dict: 
+# anyCourse = (course.get_courses("2231", "CS")).courses['0007']
+
+# print(pitt_object(sectionDescriptions(anyCourse.sections[0], '2231', '0007')))
+#for i in dict: 
 
 # sectionDet = SectionDetails(NamedTuple)
 	
-
-
