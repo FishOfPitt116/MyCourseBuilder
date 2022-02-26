@@ -36,10 +36,16 @@ class Node:
 	# 	specific_course = courseType.courses[class_number]
 
 class Graph:
+
+	def __init__(self):
+		self.adjacency_list = {}
+		self.course_map = {}
+
 	# Adjacency list where key is parent node (prereq) and value is list of nodes (courses that need prereq)
 	def __init__(self, term, dept_code):
 		self.adjacency_list = {}
 		self.course_map = self.fill_dict(term, dept_code)
+		self.term = term
 
 	# Add parent node as prereq (list of nodes is initially empty) (Ex: Add 445 node to graph)
 	def add_list_ele(self, node):
@@ -109,17 +115,18 @@ class Graph:
 		# }
 		return { "nodes" : nodes, "links" : links }
 
-''' THIS APPROACH ONLY WORKS FOR SPECIFIC DEPARTMENTS AT THE MOMENT
+#THIS APPROACH ONLY WORKS FOR SPECIFIC DEPARTMENTS AT THE MOMENT
 fallGraph = None
 springGraph = None
+mergedGraph = None
 
 def get_Graph(graph, term, dept_code):
 	node_Graph = Graph(term, dept_code)
 	if graph.term % 10 == 1:	# add to the fall graph
-		global fallGraph = node_Graph
+		fallGraph = node_Graph
 		return fallGraph
 	elif graph.term % 10 == 4: # add to the spring graph 
-		global springGraph = node_Graph
+		springGraph = node_Graph
 		return springGraph
 		# YOU HAVEN'T DONE THIS YET
 		# BUT MAKE SURE TO MERGE FALL AND SPRING
@@ -128,21 +135,46 @@ def get_Graph(graph, term, dept_code):
 		fallGraph = node_Graph
 		return fallGraph
 
-mergedGraph = None
-if fallGraph != None && springGraph != null:
-	mergedGraph = mergeGraph()
+fallGraph = Graph('2221', 'CS')
+springGraph = Graph('2224', 'CS')
 
-def mergeGraph(curTerm): 
-	# code
-	merge = fallGraph.adjacency_list | springGraph.adjacency_list
-	return merge
-
+'''
 def toJSON(): 
-	
+	mergedGraph
 # ADD MERGE GRAPH JSON
 '''
 
+class MergeGraph(Graph):
+	# Initializes the adjacency list for the merged list
+	def __init__(self): #def __init__(self, dept_code):
+		self.adjacency_list = {}
+		#self.dept_code = dept_code
+		#self.course_map = self.fill_dict(term, dept_code)
+
+	def __str__(self):
+		output = ""
+		for key, val in self.adjacency_list.items():
+			output += "{" + str(key) + " : ["
+			for node in val:
+				output += str(node) + ", "
+			output += "]}\n"
+		return output
+
+if fallGraph != None and springGraph != None:
+	mergedGraph = Graph() # MergeGraph(springGraph.dept_code) # None
+	mergedGraph.adjacency_list = fallGraph.adjacency_list
+	mergedGraph.course_map = fallGraph.course_map
+	for key, val in springGraph.adjacency_list:
+		if key not in fallGraph.adjacency_list:
+			mergedGraph.course_map[key.course_no] = key
+			for node in val:
+				mergedGraph.adjacency_list[key].append(node)
+
+print(str(mergedGraph))
+
+'''
 universal_graph = Graph('2231', 'CS')
 print(universal_graph.toJSON())
 with open('test.json', 'w') as f:
 	json.dump(universal_graph.toJSON(), f)
+'''
