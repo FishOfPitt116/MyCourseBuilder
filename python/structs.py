@@ -1,7 +1,6 @@
 from pittapi import course
 
 
-
 class Node:
 	def __init__(self): # default constructor: Node()
 		self.dept_code = ""# str
@@ -17,6 +16,7 @@ class Node:
 		self.course_title = course_obj.course_title
 		self.section_details = course.get_extra_section_details(section=course_obj.sections[0], term=course_obj.sections[0].term, class_number=self.course_no)
 		self.description = self.section_details.description
+		self.preqs = self.parse_preqs(section_details.preqs)
 		self.completed = False
 
 	def __str__(self):
@@ -30,6 +30,80 @@ class Node:
 			"description" : self.description,
 			"completed" : self.completed
 		}
+	
+	def parse_preqs(self, preqs):
+		listOfReqs = []
+		someAndList = [True]
+		someOrList = [False]
+		dept_code_len = len(dept_code)
+		preqs_string = dict[num].section_details.preqs
+		for i in range(len(preqs_string)-dept_code_len):
+			# We have reached the end of the string
+			if preqs_string[i] == ';':
+				break
+			# contains parentheses first
+			if preqs_string[i] == '(':
+				# create an innerlist 
+				# ASSUMES THAT EVERY PARENTHESES BEGINNING WITH AN '(' ENDS WITH AN ')'
+				while preqs_string[i] != ')':
+					if i + 1 + dept_code_len >= len(preqs_string)-dept_code_len:
+						break
+					if preqs_string[i+1:i+1+dept_code_len] == dept_code:
+						i += 1
+						code = preqs_string[i+dept_code_len+1:i+dept_code_len+5]
+						i = i+dept_code_len+6
+
+						# Case where we add the last course in the string
+						if i >= len(preqs_string)-dept_code_len:
+							if len(someAndList) > 1:
+								someAndList += [code] 
+							else if len(someOrList) > 1:
+								someOrList += [code]
+							break
+					# Question: Can both lists contain code at the same time?
+						if preqs_string[i:i+3] == 'and' and code not in someAndList:
+							someAndList += [code]
+						if preqs_string[i:i+2] == 'or' and code not in someOrList:
+							someOrList += [code] # [False, CS 0441, CS 0406]
+					else:
+						i += 1
+				if len(someAndList) > 1:
+					#someAndList = [someAndList]
+					listOfReqs.append(someAndList)
+				if len(someOrList) > 1:
+					#someOrList = [someOrList] # [False, CS 0441, CS 0406]
+					listOfReqs.append(someOrList)
+				# Resets And and Or Lists Values
+				someAndList = [True]
+				someOrList = [False]
+				
+			# contains non-parentheses first
+			else if preqs_string[i:i+dept_code_len] == dept_code:
+				code = preqs_string[i+dept_code_len+1:i+dept_code_len+5]
+				# append to listOfReqs
+		return listOfReqs 
+
+		def outer_paran_parse_preqs(listOfReqs, someAndList, someOrList, dept_code_len, preqs_string, ):
+			while preqs_string[i] != ';':
+				for i in range(len(preqs_string) - dept_code_len):
+					if preqs_string[i] == ')': 
+						if i + 2 < (len(preqs_string) - dept_code_len):
+							if preqs_string[i + 2] == 'a':
+								pass
+
+				
+			
+
+				
+
+
+
+			# Matches dept_code --> Ex: 1501 --> (CS 0441 or CS 0406) and (CS 0445 or CS 0455 or COE 0445), match "CS" so code is "0441", "0406", etc
+			if preqs_string[i:i+dept_code_len] == dept_code:
+				code = preqs_string[i+dept_code_len+1:i+dept_code_len+5]
+				# Add 1501 node (dependent) to 445 parent (prereq) in dict
+				if code in dict:
+					self.add_node_ele(dict[code], dict[num])
 
 
 
@@ -112,3 +186,5 @@ class Graph:
 		# 	"links" : [ { "source": key, "target": value.course_no} for key, value in adjacency_list.items() ]
 		# }
 		return { "nodes" : nodes, "links" : links }
+
+
