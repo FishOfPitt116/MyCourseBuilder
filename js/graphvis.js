@@ -1,5 +1,6 @@
 var term = "2224_";
 var code = "CS";
+var preqs = {};
 
 var apply = document.getElementById("apply");
 apply.addEventListener('click', () => {
@@ -86,7 +87,7 @@ function setGraph(term, code) {
 
         let body = document.body;
         let newDiv = document.createElement("div");
-        newDiv.id = "course-info";
+        newDiv.id = "alertDiv";
 
         let courseTitle = document.createElement("h1");
         courseTitle.textContent = d.dept_code + " " + d.id + " " + d.course_title;
@@ -95,6 +96,15 @@ function setGraph(term, code) {
         let description = document.createElement("p");
         description.textContent = d.description;
         newDiv.appendChild(description);
+
+        let button = document.createElement("button");
+        button.textContent = "Close";
+        button.addEventListener('click', () => {
+          body.removeChild(newDiv);
+        });
+        newDiv.appendChild(button);
+
+        body.appendChild(newDiv);
       });
       // .attr("text", function(d) { return d.id });
 
@@ -124,7 +134,6 @@ function setGraph(term, code) {
 
     simulation.force("link")
         .links(graph.links);
-
     // if (graph.nodes == []) {
     //   svg.append("text")
     //   .text("No courses found for this term and subject. Refine your search criteria.")
@@ -143,6 +152,19 @@ function setGraph(term, code) {
             return "translate(" + d.x + "," + d.y + ")";
           })
     }
+
+    preqs = {};
+    for (link of graph.links) {
+      if (preqs[link.source] == undefined) {
+        preqs[link.source] = 0;
+      }
+      if (preqs[link.target] == undefined) {
+        preqs[link.source] = 1;
+      } else {
+        preqs[link.source] += 1;
+      }
+    }
+    console.log(preqs);
   });
 
   function dragstarted(d) {

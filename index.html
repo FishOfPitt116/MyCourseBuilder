@@ -45,18 +45,37 @@
         #title {
             padding-top: 15px;
             padding-bottom: 20px;
-            background-color: #FFB81C;
+            text-align: center;
+            /* background-color: #FFB81C; */
+        }
+
+        #alertDiv {
+          position: absolute;
+          top: 50%;
+          left: 15%;
+          text-align: center;
+          z-index:2;
+          background-color: white;
+          border: 2px solid black;
+          margin-left: 15px;
+          padding: 15px;
+          margin-top: -100px;
+          margin-left: -200px;
+        }
+
+        p {
+          font-size: 18pt;
         }
     </style>
     <div id="title">
-        <h1>myCourseBuilder</h1>
+        <img src="resources/myCourseBuilder.png" width=480px height=480px style="display:inline-block;">
     </div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 
 <body=>
     <br>
-    <div id="menus" style="background-color: #FFB81C; padding-top: 20px;">
+    <div id="menus">
         <select id="term-select">
         <option>Fall</option>
         <option selected>Spring</option>
@@ -69,7 +88,7 @@
     </div>
 
     <div id="datavis">
-        <svg id="border" width="992" height="800"></svg>
+        <svg id="border" width="992" height="800" style="background-color: #FFFFFF"></svg>
         <script src="js/graphvis.js"></script>
     </div>
 
