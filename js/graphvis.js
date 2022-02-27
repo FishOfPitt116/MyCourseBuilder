@@ -153,18 +153,18 @@ function setGraph(term, code) {
           })
     }
 
-    preqs = {};
-    for (link of graph.links) {
-      if (preqs[link.source] == undefined) {
-        preqs[link.source] = 0;
-      }
-      if (preqs[link.target] == undefined) {
-        preqs[link.source] = 1;
-      } else {
-        preqs[link.source] += 1;
-      }
-    }
-    console.log(preqs);
+    // preqs = {};
+    // for (link of graph.links) {
+    //   if (preqs[link.source] == undefined) {
+    //     preqs[link.source] = 0;
+    //   }
+    //   if (preqs[link.target] == undefined) {
+    //     preqs[link.source] = 1;
+    //   } else {
+    //     preqs[link.source] += 1;
+    //   }
+    // }
+    // console.log(preqs);
   });
 
   function dragstarted(d) {
