@@ -2,6 +2,10 @@ var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
+svg = svg.call(d3.zoom().on("zoom", function () {
+  svg.attr("transform", d3.event.transform)
+})).append("g");
+
 svg.append('defs').append('marker')
   .attr('id', 'arrowhead')
   .attr('viewBox', '-0 -5 10 10')
@@ -29,12 +33,6 @@ var simulation = d3.forceSimulation()
     // .force('x', d3.forceX().x(function(d) { return (d.id*16) % 800; }))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
-    //add zoom capabilities 
-var zoom_handler = d3.zoom()
-  .on("zoom", zoom_actions);
-
-zoom_handler(svg);
-
 d3.json("json/cs.json", function(error, graph) {
   if (error) throw error;
 
@@ -47,7 +45,6 @@ d3.json("json/cs.json", function(error, graph) {
     .attr('marker-end', 'url(#arrowhead)');
 
   var node = svg.append("g")
-    .on('dblclick', function(d) { d.completed = !d.completed; })
     .attr("class", "nodes")
     .selectAll("g")
     .data(graph.nodes)
@@ -56,27 +53,28 @@ d3.json("json/cs.json", function(error, graph) {
 
   var circles = node.append("circle")
     .attr("r", 20)
-    .attr("fill", function(d) { if (d.completed == false) return 'grey'; return 'green'; })
-    .on("dblclick", () => {
+    .attr("fill", function(d) { if (d.completed == false) return 'grey'; return 'lightgreen'; })
+    .on("dblclick", function(d) {
       currentColor = d3.select(this).attr("fill")
-      currentColor = currentColor == "green" ? "grey" : "green";
+      currentColor = currentColor == "lightgreen" ? "grey" : "lightgreen";
       d3.select(this).attr("fill", currentColor);
-    })
+    });
     // .attr("text", function(d) { return d.id });
 
   // Create a drag handler and append it to the node object instead
-  // var drag_handler = d3.drag()
-  //     .on("start", dragstarted)
-  //     .on("drag", dragged)
-  //     .on("end", dragended);
+  var drag_handler = d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
 
-  // drag_handler(node);
+  drag_handler(node);
   
   var labels = node.append("text")
       .text(function(d) {
         return d.id;
       })
       .attr("text-anchor", "middle")
+      // .attr("text-align", "center")
       .attr('x', 6)
       .attr('y', 3);
 

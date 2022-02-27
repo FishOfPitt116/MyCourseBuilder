@@ -1,23 +1,86 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style>
+<html lang='en'>
+  <head>
+    <meta charset="utf-8">
+    <style>
 
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
-}
+      html {
+        margin-left: 15%;
+        margin-right: 15%;
+      }
 
-.nodes circle {
-  stroke: #fff;
-  stroke-width: 1.5px;
-}
+      #datavis {
+        text-align: center;
+      }
 
-text {
-  font-family: sans-serif;
-  font-size: 10px;
-}
+      .links line {
+        stroke: #999;
+        stroke-opacity: 0.6;
+      }
+  
+      .nodes circle {
+        stroke: #fff;
+        stroke-width: 1.5px;
+      }
+  
+      text {
+        font-family: sans-serif;
+        font-size: 10px;
+      }
 
-</style>
-<svg width="960" height="800"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="graphvis.js"></script>
+      #border {
+        border:1px solid black;
+      }
+
+      h1 {
+        text-align: center;
+      }
+    
+      
+    </style>
+    <div id="title">
+      <h1>myCourseBuilder</h1>
+    </div>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <div>
+
+    </div>
+
+    <div id="datavis">
+      <svg id="border" width="960" height="800"></svg>
+      <script src="graphvis.js"></script>
+    </div>  
+
+    <div id="desc">
+      <p>
+        How to use the myCourseBuilder model:
+          <ul>
+            <li>
+              Select your relevant department code and semester (spring or fall) from the above drop-downs and hit the submit button.
+              From here, myCourseBuilder will generate all courses offered under that department for the given term and place them in a
+              graph, to be displayed in the box above.
+            </li>
+            <li>
+              Click and drag class "nodes" around the diagram in order to make it more clear and apparent what courses are connected and how exactly
+              they are.
+            </li>
+            <li>
+              Click and drag on the box to get a better view of all the courses being offered in the given semester! You can also zoom in to see
+              a more clear picture of which courses are prerequisites for others.
+            </li>
+            <li>
+              Double click on a course in order to mark it as "completed." As a result of this "completion," other nodes will become colored light green,
+              indicating you should now be capable of completing them too during the given semester.
+            </li>
+            <li>
+              Right click on a course in order to read more information on what exactly the course has to offer. A number certainly won't tell you the whole
+              story when it comes to what a course has to offer!
+            </li>
+          </ul>
+      </p>
+    </div>
+
+  </body>
+</html>
