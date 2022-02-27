@@ -36,7 +36,11 @@
         text-align: center;
       }
     
-      
+      #menus {
+        text-align: center;
+        padding-bottom: 15px;
+      }
+
     </style>
     <div id="title">
       <h1>myCourseBuilder</h1>
@@ -44,13 +48,21 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
-    <div>
-
+    <div id="menus">
+      <select id="term-select">
+        <option>Fall</option>
+        <option selected>Spring</option>
+      </select>
+      <select id="code-select">
+        <option selected>CS</option>
+      </select>
+      <button id="apply">APPLY</button>
+      <script src="js/fillselect.js"></script>
     </div>
 
     <div id="datavis">
       <svg id="border" width="960" height="800"></svg>
-      <script src="graphvis.js"></script>
+      <script src="js/graphvis.js"></script>
     </div>  
 
     <div id="desc">
