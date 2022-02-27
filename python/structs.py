@@ -34,12 +34,9 @@ class Node:
 
 
 class Graph:
-    def __init__(self):
-		self.adjacency_list = {}
-		self.course_map = {}
 
 	# Adjacency list where key is parent node (prereq) and value is list of nodes (courses that need prereq)
-	def __init__(self, term = "", dept_code=""):
+	def __init__(self, term="", dept_code=""):
 		if term == "" and dept_code == "":
 			self.adjacency_list = {}
 			self.course_map = {}

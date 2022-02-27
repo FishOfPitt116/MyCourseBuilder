@@ -9,31 +9,37 @@ import json
 
 #THIS APPROACH ONLY WORKS FOR SPECIFIC DEPARTMENTS AT THE MOMENT
 
-fallGraph = structs.Graph('2221', 'CS')
-springGraph = structs.Graph('2224', 'CS')
-
-'''
-def toJSON(): 
-	mergedGraph
-# ADD MERGE GRAPH JSON
-'''
-
-mergedGraph = structs.Graph() # MergeGraph(springGraph.dept_code) # None
-mergedGraph.adjacency_list = fallGraph.adjacency_list
-mergedGraph.course_map = fallGraph.course_map 
-for key, val in springGraph.adjacency_list.items(): # key = Node	value = List[Node]
-	if key.course_no not in mergedGraph.course_map.keys():	# if 
-		mergedGraph.course_map[key.course_no] = key
-		mergedGraph.adjacency_list[key] = []
-		for node in val:
-			print("node: " + str(node))
-			mergedGraph.adjacency_list[key].append(node)
-	else:
-		for node in springGraph.adjacency_list[key]:
-			if node not in mergedGraph.adjacency_list[key]:
-				mergedGraph.adjacency_list[key].append(n)
+def year_get_json(year, course_code):
+	if year < 1900 or year > 2099:
+		print("Invalid year. JSON cannot be returned.")
+		return None
+	term_starter = str(year//1000) + str(year%100)
+	merged_graph = structs.Graph(term_starter + '4', course_code)
+	fall_graph = structs.Graph(term_starter + '1', course_code)
+	for key, value in fall_graph.course_map.items():
+		if key not in merged_graph.course_map.keys():
+			merged_graph.course_map[key] = value
+	for key, value in fall_graph.adjacency_list.items():
+		if key not in merged_graph.adjacency_list.keys():
+			merged_graph.add_list_ele(key)
+		if value is not merged_graph.adjacency_list[key]:
+			print(key.course_no)
+			for ele in value:
+				if ele not in merged_graph.adjacency_list[key]:
+					merged_graph.add_node_ele(key, ele)
+	print(merged_graph)
+	return merged_graph.toJSON()
 	
-print(str(mergedGraph))
+def term_get_json(term, course_code):
+	return structs.Graph(term, course_code).toJSON()
+
+print(course.get_subject_codes())
+
+for code in course.get_subject_codes():
+	with open("../json/2221_" + code + ".json", "w") as f:
+		json.dump(term_get_json("2221", code), f)
+	with open("../json/2224_" + code + ".json", "w") as f:
+		json.dump(term_get_json("2224", code), f)
 
 '''
 universal_graph = Graph('2231', 'CS')
