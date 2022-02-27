@@ -79,6 +79,22 @@ function setGraph(term, code) {
         currentColor = d3.select(this).attr("fill")
         currentColor = currentColor == "lightgreen" ? "grey" : "lightgreen";
         d3.select(this).attr("fill", currentColor);
+      })
+      .on("contextmenu", function(d) {
+        console.log("right click");
+        d3.event.preventDefault();
+
+        let body = document.body;
+        let newDiv = document.createElement("div");
+        newDiv.id = "course-info";
+
+        let courseTitle = document.createElement("h1");
+        courseTitle.textContent = d.dept_code + " " + d.id + " " + d.course_title;
+        newDiv.appendChild(courseTitle);
+
+        let description = document.createElement("p");
+        description.textContent = d.description;
+        newDiv.appendChild(description);
       });
       // .attr("text", function(d) { return d.id });
 
