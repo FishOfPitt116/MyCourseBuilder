@@ -7,7 +7,7 @@ import json
 	# 	self.course_no = class_number
 	# 	specific_course = courseType.courses[class_number]
 
-#THIS APPROACH ONLY WORKS FOR SPECIFIC DEPARTMENTS AT THE MOMENT
+# THIS APPROACH ONLY WORKS FOR SPECIFIC DEPARTMENTS AT THE MOMENT
 
 def year_get_json(year, course_code):
 	if year < 1900 or year > 2099:

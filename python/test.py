@@ -1,4 +1,6 @@
 from pittapi import course
+# Test File, brainstorming node and Graph set-up
+
 
 # Returns courses available in specific term for a particular department ("2231" is Fall '22 and "CS" is CS classes)
 # Returns Subject object (has department, courses (dictionary of str to Course object), term)
