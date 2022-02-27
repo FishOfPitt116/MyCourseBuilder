@@ -33,13 +33,20 @@ def year_get_json(year, course_code):
 def term_get_json(term, course_code):
 	return structs.Graph(term, course_code).toJSON()
 
-print(course.get_subject_codes())
+codes = course.get_subject_codes()
 
-for code in course.get_subject_codes():
-	with open("../json/2221_" + code + ".json", "w") as f:
-		json.dump(term_get_json("2221", code), f)
-	with open("../json/2224_" + code + ".json", "w") as f:
-		json.dump(term_get_json("2224", code), f)
+for code in range(13, len(codes)):
+	print(codes[code])
+	with open("../json/2221_" + codes[code] + ".json", "w") as f:
+		try:
+			json.dump(term_get_json("2221", codes[code]), f)
+		except ValueError:
+			json.dump({"nodes": [], "links": []}, f)
+	with open("../json/2224_" + codes[code] + ".json", "w") as f:
+		try:
+			json.dump(term_get_json("2224", codes[code]), f)
+		except ValueError:
+			json.dump({"nodes": [], "links": []}, f)
 
 '''
 universal_graph = Graph('2231', 'CS')

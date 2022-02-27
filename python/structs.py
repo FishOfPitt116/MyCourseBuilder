@@ -70,7 +70,7 @@ class Graph:
 
 		# Iterate thru course_num and course_obj of courses in a specific term/department
 		for num, obj in course.get_courses(term, dept_code).courses.items():
-			if int(num) >= 2000:
+			if int(num[0:4]) >= 2000:
 				return dict
 
 			# If valid, map course_num to node (course_obj)
