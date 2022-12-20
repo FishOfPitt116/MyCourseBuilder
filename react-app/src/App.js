@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import { Graph } from 'react-d3-graph'
 
 function App() {
   return (
