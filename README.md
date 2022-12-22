@@ -1,9 +1,13 @@
 # PittCourseHelper
 Our Project for the 2022 SteelHacks Hackathon Competition.
-Members: Caleb Tsai, Justin Henry, Robbie Fishel, Kenny Zhang
+
+## Authors
+- Caleb Tsai
+- Justin Henry
+- Robbie Fishel
+- Kenny Zhang
 
 ## Set-Up
-
 To develop/test the original app with vanilla JS and python:
 
 1. To enter venv: `source .steelHacksVENV/bin/activate`
@@ -11,7 +15,6 @@ To develop/test the original app with vanilla JS and python:
 3. To exit venv: `deactivate`
 
 ## React
-
 To develop/test the react app, follow these steps:
 
 1. Ensure you have node and npm installed.
