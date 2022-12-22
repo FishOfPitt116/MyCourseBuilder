@@ -3,17 +3,12 @@ Our Project for the 2022 SteelHacks Hackathon Competition.
 Members: Caleb Tsai, Justin Henry, Robbie Fishel, Kenny Zhang
 
 ## Set-Up
-To enter venv: ` source .steelHacksVENV/bin/activate `
 
-<br>
+To develop/test the original app with vanilla JS and python:
 
-Once in venv, you might have to run: ` pip install git+https://github.com/pittcsc/PittAPI.git@robbie-dev `
-
-<br>
-
-To exit venv: ` deactivate `
-
-<br>
+1. To enter venv: `source .steelHacksVENV/bin/activate`
+2. Once in venv, you might have to run: `pip install git+https://github.com/pittcsc/PittAPI.git@robbie-dev`
+3. To exit venv: `deactivate`
 
 ## React
 
@@ -35,3 +30,6 @@ With myCourseBuilder, users initially choose a specific term and department code
 - html/css
 - d3.js
 - python
+
+### Coming soon...
+- React
