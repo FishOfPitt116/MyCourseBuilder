@@ -16,7 +16,7 @@ export const Node = {
             y: height/2
         }
     },
-    parsePreqs() {
+    parsePreqs(preqs) {
         // to convert from parse_preqs(self, preqs) in python/structs.py
     }
 }
