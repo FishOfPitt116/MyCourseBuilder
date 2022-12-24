@@ -18,6 +18,7 @@ function generateNodes(height, width) {
         node.x = width/2;
         node.y = Math.random()*(width-200) + 100;
         node.y = 100 + (i * ((height-200)/nodes.length));
+        // node.color = "green"; -> only have this if node has no prereqs
     }
     return data;
     // return [
