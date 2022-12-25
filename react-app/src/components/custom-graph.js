@@ -2,7 +2,7 @@ import { Graph } from "react-d3-graph"
 import useWindowDimensions from "../utils/window-dimensions"
 import generateConfig from "../utils/graph/generate-config"
 import generateData from "../utils/graph/generate-data"
-import { onClickNode, onClickLink } from "../utils/graph/generate-events"
+import { onClickNode, onRightClickNode, onClickLink,  onRightClickLink} from "../utils/graph/generate-events"
 
 function CustomGraph() {
     const { height, width } = useWindowDimensions();
@@ -13,6 +13,8 @@ function CustomGraph() {
             config={generateConfig(height, width)}
             onClickNode={onClickNode}
             onClickLink={onClickLink}
+            onRightClickNode={onRightClickNode}
+            onRightClickLink={onRightClickLink}
         />
     </div>;
 }
