@@ -15,10 +15,15 @@ function generateNodes(height, width) {
     for (let i in nodes) {
         let node = nodes[i];
         console.log(node);
-        node.x = width/2;
-        node.y = Math.random()*(width-200) + 100;
-        node.y = 100 + (i * ((height-200)/nodes.length));
+        node.x = width / 2;
+        node.y = Math.random() * (width - 200) + 100;
+        node.y = 100 + (i * ((height - 200) / nodes.length));
         // node.color = "green"; -> only have this if node has no prereqs
+        if (node.prereq_count === 0) {
+            node.color = 'green';
+        } else {
+            node.color = 'silver';
+        }
     }
     return data;
     // return [
